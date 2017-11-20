@@ -6,7 +6,7 @@ mod vis;
 
 use rand::Rng;
 use sort::{ bubble_sort, selection_sort, comb_sort, quick_sort, heap_sort };
-use vis::print_list_vis;
+use std::env;
 
 fn main() {
     let mut rng = rand::thread_rng();
@@ -16,23 +16,41 @@ fn main() {
         l[i] = i;
     }
 
-    rng.shuffle(&mut l);
-
-    bubble_sort(&mut l);
-
-    rng.shuffle(&mut l);
-
-    selection_sort(&mut l);
-
-    rng.shuffle(&mut l);
+    let mut args: Vec<String> = env::args().collect();
     
-    comb_sort(&mut l);
+    // Remove the name argument
+    args.remove(0);
 
-    rng.shuffle(&mut l);
+    if args.len() == 0 {
+        args = vec![
+            String::from("bubble"), String::from("selection"), String::from("comb"), String::from("quick"), String::from("heap")
+        ];
+    }
 
-    quick_sort(&mut l);
+    for arg in args.iter() {
+        rng.shuffle(&mut l);
+        
+        handle_arg(&arg, &mut l)
+    }
+}
 
-    rng.shuffle(&mut l);
+fn handle_arg(arg: &str, l: &mut [usize]) {
+    match arg {
+        "help" => {
+            println!("Actions (if none are specified the program will cycle through all algorithms)\n");
+            println!("bubble:\t\tBubble Sort");
+            println!("selection:\tSelection Sort");
+            println!("comb:\t\tComb Sort");
+            println!("quick:\t\tQuick Sort");
+            println!("heap:\t\tHeap Sort");
+            std::process::exit(0);
+        },
 
-    heap_sort(&mut l);
+        "bubble" => bubble_sort(l),
+        "selection" => selection_sort(l),
+        "comb" => comb_sort(l),
+        "quick" => quick_sort(l),
+        "heap" => heap_sort(l),
+        _ => {},
+    }
 }

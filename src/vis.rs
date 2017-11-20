@@ -1,12 +1,12 @@
 extern crate colored;
 
 use self::colored::*;
-use std::{ thread, time };
 
 pub fn print_list_vis(list: &mut [usize], yellow: Vec<i32>, green: Vec<i32>) {
-    let columns = list.len();
+    let min_val = list[min(list)];
+    let max_val = list[max(list)] + 1;
 
-    for i in (list[min(list)]..list[max(list)] + 1).rev() {
+    for i in (min_val..max_val).rev() {
         print!(" ");
 
         for j in 0..list.len() {

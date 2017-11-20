@@ -1,4 +1,3 @@
-use std::cmp::PartialOrd;
 use vis::{ print_list_vis, clear };
 
 use std::thread::sleep;
@@ -57,7 +56,9 @@ pub fn bubble_sort(list: &mut [usize]) {
 
         }
 
-        len -= 1;
+        if len > 0 {
+            len -= 1;
+        }
     }
 
     let r: Vec<i32> = (0..list.len() as i32).collect();
@@ -199,7 +200,7 @@ fn partition (list: &mut [usize], low: i32, high: i32) -> i32 {
     print_list_vis(list, vec![pivot as i32], vec![i + 1, high]);
     sleep(Duration::from_millis(100));
 
-    return (i + 1);
+    return i + 1;
 }
 
 // Heap Sort
