@@ -269,3 +269,73 @@ fn heapify(list: &mut [usize], i: usize, max: usize) {
         heapify(list, largest, max);
     }
 }
+
+// Merge sort
+
+
+pub fn merge_sort(list: &mut [usize]) {
+    let len = list.len();
+    merge_sort_bounded(list, 0, len);
+}
+
+fn merge_sort_bounded(list: &mut [usize], from: usize, to: usize) {
+    let len = to - from;
+
+    if len <= 1 {
+        return;
+    }
+
+    let mid: usize = to - (len / 2);
+
+    merge_sort_bounded(list, from, mid);
+    merge_sort_bounded(list, mid, to);
+
+    merge(list, from, mid, to);
+}
+
+fn merge(list: &mut [usize], from: usize, mid: usize, to: usize) {
+    let mut left: Vec<usize> = Vec::new();
+    let mut right: Vec<usize> = Vec::new();
+
+    clear();
+    println!(" Merge Sort\n");
+    print_list_vis(list, vec![from as i32, mid as i32], Vec::new());
+    sleep(Duration::from_millis(100));
+
+    for i in from..mid {
+        left.push(list[i]);
+    }
+    
+    for i in mid..to {
+        right.push(list[i]);
+    }
+
+    let mut res: Vec<usize> = Vec::new();
+    
+    while left.len() > 0 && right.len() > 0 {
+        if left[0] <= right[0] {
+            res.push(left.remove(0));
+        }
+
+        else {
+            res.push(right.remove(0));
+        }
+    }
+
+    while left.len() > 0 {
+        res.push(left.remove(0));
+    }
+
+    while right.len() > 0 {
+        res.push(right.remove(0));
+    }
+
+    for i in 0..res.len() {
+        list[from + i] = res[i];
+
+        clear();
+        println!(" Merge Sort\n");
+        print_list_vis(list, vec![from as i32, mid as i32], vec![(from + i) as i32]);
+        sleep(Duration::from_millis(100));
+    }
+}

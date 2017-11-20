@@ -5,7 +5,7 @@ mod sort;
 mod vis;
 
 use rand::Rng;
-use sort::{ bubble_sort, selection_sort, comb_sort, quick_sort, heap_sort };
+use sort::{ bubble_sort, selection_sort, comb_sort, quick_sort, heap_sort, merge_sort };
 use std::env;
 
 fn main() {
@@ -23,7 +23,7 @@ fn main() {
 
     if args.len() == 0 {
         args = vec![
-            String::from("bubble"), String::from("selection"), String::from("comb"), String::from("quick"), String::from("heap")
+            String::from("bubble"), String::from("selection"), String::from("comb"), String::from("quick"), String::from("heap"), String::from("merge")
         ];
     }
 
@@ -43,14 +43,17 @@ fn handle_arg(arg: &str, l: &mut [usize]) {
             println!("comb:\t\tComb Sort");
             println!("quick:\t\tQuick Sort");
             println!("heap:\t\tHeap Sort");
+            println!("merge:\t\tMerge Sort");
             std::process::exit(0);
         },
 
-        "bubble" => bubble_sort(l),
+        "bubble"    => bubble_sort(l),
         "selection" => selection_sort(l),
-        "comb" => comb_sort(l),
-        "quick" => quick_sort(l),
-        "heap" => heap_sort(l),
+        "comb"      => comb_sort(l),
+        "quick"     => quick_sort(l),
+        "heap"      => heap_sort(l),
+        "merge"     => merge_sort(l),
+
         _ => {},
     }
 }
