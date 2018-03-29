@@ -1,0 +1,9 @@
+[package]
+name = "sorting-algorithms"
+version = "0.1.0"
+authors = ["Liam Borella <ulfrthewolf@gmail.com>"]
+
+[dependencies]
+stopwatch = "0.0.7"
+rand = "0.3"
+colored = "1.6"
